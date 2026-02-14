@@ -45,18 +45,22 @@ spec:
       image: python:3.9-slim
       workingDir: $(workspaces.source.path)
       script: |
-        #!/bin/bash
-        set -e
+        #!/usr/bin/env bash
+        set -eux
 
-        echo "Updating Python build tooling..."
+        echo "Repairing Python environment..."
+        python -m ensurepip --upgrade
+
+        echo "Upgrading packaging tools (THIS FIXES THE LAB BUG)"
         python -m pip install --upgrade pip
-        pip install --upgrade setuptools wheel
+        python -m pip install --upgrade setuptools wheel
 
         echo "Installing project dependencies..."
-        pip install --no-cache-dir -r requirements.txt
+        python -m pip install --no-cache-dir -r requirements.txt
 
         echo "Running unit tests..."
-        nosetests $(params.args)
+        python -m nose $(params.args)
+
 ---
 apiVersion: tekton.dev/v1beta1
 kind: Task
@@ -70,12 +74,13 @@ spec:
       image: python:3.9-slim
       workingDir: $(workspaces.source.path)
       script: |
-        #!/bin/bash
-        set -e
+        #!/usr/bin/env bash
+        set -eux
 
-        echo "Fixing Python packaging..."
+        echo "Preparing Python packaging..."
+        python -m ensurepip --upgrade
         python -m pip install --upgrade pip
-        pip install --upgrade setuptools wheel
+        python -m pip install --upgrade setuptools wheel
 
-        echo "Installing dependencies once globally..."
-        pip install --no-cache-dir -r requirements.txt
+        echo "Installing dependencies..."
+        python -m pip install --no-cache-dir -r requirements.txt
