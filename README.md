@@ -2,35 +2,24 @@
 
 Project Name :  `ci-cd-final-project`
 
-## Usage
+# CI/CD Pipeline Project
 
+## Information
+Name: Aviral Singh  
+Course: DevOps, CI/CD and GitOps Final Project
 
+## Project Description
+This project demonstrates a complete CI/CD pipeline.
 
-Name your repo: `ci-cd-final-project`.
+Continuous Integration (CI) is implemented using GitHub Actions:
+- Code checkout
+- Linting
+- Unit testing
 
-## Setup
+Continuous Delivery (CD) is implemented using OpenShift Pipelines (Tekton):
+- Clone repository
+- Quality checks
+- Build container image
+- Deploy application to Kubernetes/OpenShift
 
-After entering the lab environment you will need to run the `setup.sh` script in the `./bin` folder to install the prerequisite software.
-
-```bash
-bash bin/setup.sh
-```
-
-Then you must exit the shell and start a new one for the Python virtual environment to be activated.
-
-```bash
-exit
-```
-
-## Tasks
-
-
-## License
-
-Licensed under the Apache License. See [LICENSE](/LICENSE)
-
-## Author
-
-Skills Network
-
-## <h3 align="center"> © IBM Corporation 2023. All rights reserved. <h3/>
+The goal of this project is to automate software build, test, and deployment.
